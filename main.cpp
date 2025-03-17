@@ -1,37 +1,30 @@
-#include <bits/stdc++.h>
-#include <format>
-#include <iostream>
 #include "orderbook.h"
+#include <fstream>
 
 int main(){
 
     Orderbook orderbook;
+    int i,buy,price,quantity;
+    long long id;
+
+    std::cout<<"Select which test case to use (1-3):\n";
+    std::cin>>i;
+    std::ifstream read(std::format("test/in{}.txt", i));
 
 
-    orderbook.PrintMarket();
-    orderbook.AddOrder(Side::Buy, 10, 1, 0);
-    orderbook.AddOrder(Side::Buy, 11, 4, 1);
-    orderbook.AddOrder(Side::Buy, 12, 2, 2);
+    while(read>>buy>>price>>quantity>>id){
+        if(buy==-1){
+            orderbook.CancelOrder(id);
+            continue;
+        }
 
-    orderbook.AddOrder(Side::Sell, 20, 2, 3);
-    orderbook.AddOrder(Side::Sell, 18, 13, 4);
-    orderbook.PrintMarket();
-    orderbook.AddOrder(Side::Sell, 10, 70, 5);
-    orderbook.PrintMarket();
+        Side side = buy==1? Side::Buy : Side::Sell;
+        orderbook.AddOrder(side, price, quantity, id);
+    }
 
-    orderbook.CancelOrder(4);
-    orderbook.CancelOrder(3);
-    orderbook.CancelOrder(5);
-    orderbook.PrintMarket();
-
-    int testSize =0;
-    std::cout<<"Final number of orders to test the orderbook:\n";
-    std::cin>>testSize;
-
-    for(int i=1;i<=testSize;i++) orderbook.AddOrder(Side::Buy, 10, i, i+10);
-
-    for(int i=1;i<=testSize;i++) orderbook.AddOrder(Side::Sell, 10, i, i+testSize+10);
+    read.close();
 
     orderbook.PrintMarket();
+
     return 0;
 }

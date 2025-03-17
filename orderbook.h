@@ -1,6 +1,9 @@
-#include <bits/stdc++.h>//includes a LOT of things
-#include <format>
 #include <iostream>
+#include <set>
+#include <unordered_map>
+#include <format>
+#include <memory>
+
 enum class Side{
     Buy,
     Sell
@@ -89,7 +92,7 @@ private:
 
             bestBuy->Fill(quantity);
             bestAsk->Fill(quantity);
-            //std::cout<<"Traded "<<quantity<<" units at "<<(bestBuy->GetPrice()+bestAsk->GetPrice())/2.0<<" euros!\n";
+            std::cout<<"Traded "<<quantity<<" units at "<<(bestBuy->GetPrice()+bestAsk->GetPrice())/2.0<<" euros!\n";
 
             buy_.erase(buy_.begin());
             if(bestBuy->isFilled())order_.erase(bestBuy->GetOrderId());
