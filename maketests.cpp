@@ -19,5 +19,7 @@ int main(){
         write<<"0 10 "<<101-x<<" "<<x+100<<'\n';
     }
 
+    write.close();
+
     return 0;
 }
